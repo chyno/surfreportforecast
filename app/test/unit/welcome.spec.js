@@ -1,4 +1,6 @@
 import {Welcome} from '../../src/welcome';
+import {Forecast} from '../fake/forecast';
+
 
 class HttpStub {
     fetch(url) {
@@ -40,4 +42,14 @@ describe('the Welcome module', () => {
         //expect(1).toBe(1);
              
     });
+    
+    it('Get sample forecst', () => {
+        var forecast = new Forecast();
+        
+        var data = forecast.getSample();
+         expect(data).toBeDefined();
+         
+     });
+    
+     
 });
