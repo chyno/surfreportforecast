@@ -1,34 +1,43 @@
 import {Welcome} from '../../src/welcome';
 
 class HttpStub {
-  fetch(url) {
-    var response = this.itemStub;
-    this.url = url;
-    return new Promise((resolve) => {
-      resolve({ json: () => response });
-    });
-  }
+    fetch(url) {
+        var response = this.forecastStub;
+        this.url = url;
+        return new Promise((resolve) => {
+            resolve({ json: () => response });
 
-  configure(func) {
-  }
+        });
+    }
+
+    configure(func) {
+    }
 }
 
 describe('the Welcome module', () => {
-  it('sets fetch response to forecast', (done) => {
-    var http = new HttpStub();
-    var sut = new Welcome(http);
-   var itemStubs = [1];
-    var itemFake = [2];
+    it('sets fetch response to forecast', (done) => {
+        var http = new HttpStub();
+        expect(http).toBeDefined();
+       var sut = new Welcome(http);
+        expect(sut).toBeDefined();
 
-    http.itemStub = itemStubs;
-    sut.activate().then(() => {
-      expect(sut.forecast).toBe(itemStubs);
-      expect(sut.forecast).not.toBe(itemFake);
-      done();
-    });
+
+        var forecastStubs = [1];
+        var forecastFake = [2];
+
+        http.forecastStub = forecastStubs;
+        
+
+        sut.activate().then(() => {
+            expect(sut.forecast).toBe(forecastStubs);
+            expect(sut.forecast).not.toBe(forecastFake);
+            done();
+        });
     
-   // expect(sut).toBeDefined();
-    //expect(1).toBe(1);
-    //done();     
-  });
+    // var res = sut.activate();
+    // expect(res).toBeDefined();
+        // expect(sut).toBeDefined();
+        //expect(1).toBe(1);
+             
+    });
 });

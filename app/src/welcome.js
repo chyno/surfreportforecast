@@ -15,15 +15,9 @@ export class Welcome {
     }
 
     activate() {
-        
-        his.http.fetch('something')
-            .then(response => response.json())
-            .then(data => {
-                    console.log(data);
-            })
-            
         ///api/forecast     
-        return this.http.fetch("api/forecast").then(response => response.json())
+        return this.httpClient.fetch("api/forecast")
+        .then(response => response.json())
         .then(data => {
             this.forecast = data;
         });
