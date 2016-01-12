@@ -34,5 +34,18 @@ describe('the Welcome module', () => {
         });           
     });
     
+    it('sets forecast wind speed', (done) => {
+       var sut = new Welcome(http); 
+       
+        sut.activate().then(() => {
+            expect(sut.forecast.windSpeed).toBeDefined();
+            expect(sut.forecast.windBearing).toBeDefined();
+            expect(sut.forecast.temperature).toBeDefined();
+            
+            //expect(sut.forecast).toBeDefined();
+             done();
+        });           
+    });
+    
      
 });

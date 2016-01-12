@@ -11,7 +11,7 @@ export class Welcome {
       //  this.direction = 'SE';
       //  this.temp = '60';
        this.heading = 'Forecast';
-       this.forecast = {currently : 'fooo'};
+       this.forecast;
     }
 
     activate() {
