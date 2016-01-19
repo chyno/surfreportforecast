@@ -10,7 +10,7 @@ export class Welcome {
       //  this.speed = '';
       //  this.direction = 'SE';
       //  this.temp = '60';
-       this.heading = 'Forecast';
+       this.heading = 'Current Forecast';
        this.forecast;
     }
 
