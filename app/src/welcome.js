@@ -11,7 +11,8 @@ export class Welcome {
       //  this.direction = 'SE';
       //  this.temp = '60';
        this.heading = 'Current Forecast';
-       this.forecast;
+       this.currently;
+       this.forecasts;
     }
 
     activate() {
@@ -19,7 +20,8 @@ export class Welcome {
         return this.httpClient.fetch("api/forecast")
         .then(response => response.json())
         .then(data => {
-          this.forecast = data.currently;
+          this.currently = data.currently;
+          this.forecasts = data.daily.data;
          //  this.speed = current.windSpeed;
         });
     }

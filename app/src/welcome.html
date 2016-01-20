@@ -1,24 +1,27 @@
 <template>
     <section class="au-animate">
-        <h2>${heading}</h2>
+        <h2>${zip}</h2>
         <div class="form-horizontal" role="form">
-            <h3>${zip}</h3>
+            <h3>Currently</h3>
             <div>
                 <label for="sp" class="control-label">Wind Speed: </label>
-                <span>${forecast.windSpeed}</span>
+                <span>${currently.windSpeed}</span>
             </div>
-
             <div>
                 <label for="dr" class="control-label">Wind Bearing: </label>
-                <span id="dr">${forecast.windBearing}</span>
-
+                <span id="dr">${currently.windBearing}</span>
             </div>
             <div>
                 <label for="city" class="control-label">Temperature: </label>
-                <span>${forecast.temperature}</span>
-
+                <span>${currently.temperature}</span>
             </div>
-
+        </div>
+        
+         <div class="form-horizontal" role="form">
+            <h3>Forecast</h3>
+            <template repeat.for="forecast of forecasts">
+                
+            </template>
         </div>
     </section>
 </template>
