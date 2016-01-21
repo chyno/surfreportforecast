@@ -20,7 +20,10 @@
          <div class="form-horizontal" role="form">
             <h3>Forecast</h3>
             <template repeat.for="forecast of forecasts">
-                
+                 <div>
+                <label for="dr" class="control-label">Wind Speed: </label>
+                <span id="dr">${forecast.windSpeed}</span>
+            </div>
             </template>
         </div>
     </section>

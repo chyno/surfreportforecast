@@ -24,17 +24,17 @@ describe('the Welcome module', () => {
            http.forecastStub = data;
      });
      
-    xit('sets fetch response to forecast', (done) => {
+    it('sets fetch response to forecast', (done) => {
        var sut = new Welcome(http); 
        
         sut.activate().then(() => {
-            //expect(sut.forecast).toBe(data.currently);
-            expect({}).toBeDefined();
+            expect(sut.currently).toBe(data.currently);
+          
              done();
         });           
     });
     
-    xit('sets forecast wind speed', (done) => {
+    it('get the current conditions', (done) => {
        var sut = new Welcome(http); 
        
         sut.activate().then(() => {
@@ -43,6 +43,20 @@ describe('the Welcome module', () => {
             expect(sut.currently.temperature).toBeDefined();
             
             //expect(sut.forecast).toBeDefined();
+             done();
+        });           
+    });
+    
+    it('get the forcast', (done) => {
+       var sut = new Welcome(http); 
+       
+        sut.activate().then(() => {
+           // expect(sut.currently.windSpeed).toBeDefined();
+           // expect(sut.currently.windBearing).toBeDefined();
+           // expect(sut.currently.temperature).toBeDefined();
+            
+            expect(sut.forecasts).toBeDefined();
+             expect(sut.forecasts).toBe(data.daily.data);
              done();
         });           
     });
