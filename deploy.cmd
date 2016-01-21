@@ -103,6 +103,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   call :ExecuteCmd !NPM_CMD! install --production
   ::  call :ExecuteCmd .\app\!NPM_CMD! install --production  
   ::  call :ExecuteCmd .\app\jspm install 
+  call :ExecuteCmd gulp install
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
