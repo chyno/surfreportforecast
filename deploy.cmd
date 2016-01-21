@@ -101,8 +101,8 @@ call :SelectNodeVersion
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
   call :ExecuteCmd !NPM_CMD! install --production
-    call :ExecuteCmd .\app\!NPM_CMD! install --production  
-    call :ExecuteCmd .\app\jspm install 
+  ::  call :ExecuteCmd .\app\!NPM_CMD! install --production  
+  ::  call :ExecuteCmd .\app\jspm install 
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
