@@ -22,7 +22,8 @@ export class Welcome {
         .then(data => {
           this.currently = data.currently;
           this.forecasts = data.daily.data;
-         //  this.speed = current.windSpeed;
+          //daily.data
+         // this.speed = current.windSpeed;
         });
     }
 }
