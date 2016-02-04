@@ -7,9 +7,7 @@ export class Welcome {
     constructor(httpClient) {
         this.httpClient = httpClient;
         this.zip = '22207';
-      //  this.speed = '';
-      //  this.direction = 'SE';
-      //  this.temp = '60';
+    
        this.heading = 'Current Forecast';
        this.currently;
        this.forecasts;
@@ -22,8 +20,7 @@ export class Welcome {
         .then(data => {
           this.currently = data.currently;
           this.forecasts = data.daily.data;
-          //daily.data
-         // this.speed = current.windSpeed;
+         
         });
     }
 }

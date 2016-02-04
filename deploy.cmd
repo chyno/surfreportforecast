@@ -105,11 +105,23 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
    pushd "%DEPLOYMENT_TARGET%\app"
     ::  call :ExecuteCmd !NPM_CMD! install --production  
   ::  call :ExecuteCmd  jspm install 
-  call :ExecuteCmd gulp install
+  
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
 
+
+:: 4. Restore Gulp packages and run Gulp tasks
+IF /I "gulpfile.js" NEQ "" (  
+  echo Installing Gulp dependencies: Starting %TIME%
+  call npm install gulp
+  echo Installing Gulp dependencies: Finished %TIME%
+  IF !ERRORLEVEL! NEQ 0 goto error
+  echo Running Gulp deployment: Starting %TIME%
+  call :ExecuteCmd "%DEPLOYMENT_SOURCE%\node_modules\.bin\gulp build"
+  echo Running Gulp deployment: Finished %TIME%
+  IF !ERRORLEVEL! NEQ 0 goto error
+)
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Post deployment stub
