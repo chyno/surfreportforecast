@@ -1,5 +1,6 @@
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
+
 :: ----------------------
 :: KUDU Deployment Script
 :: Version: 1.0.6
@@ -100,9 +101,7 @@ call :SelectNodeVersion
 :: 3. Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
-    call :ExecuteCmd !NPM_CMD! install --production
-    call :ExecuteCmd .\app\!NPM_CMD! install --production  
-    call :ExecuteCmd .\app\jspm install 
+  call :ExecuteCmd !NPM_CMD! install --production
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
