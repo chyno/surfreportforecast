@@ -108,10 +108,13 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 
 echo 4. Install npm packages in app
 IF EXIST "%DEPLOYMENT_TARGET%\app\package.json" (
-   echo %DEPLOYMENT_TARGET%\app
+  
   pushd "%DEPLOYMENT_TARGET%\app"
+   echo npm install
   call :ExecuteCmd !NPM_CMD! install --production
-   call :ExecuteCmd !NPM_CMD! install  jspm
+  echo npm install jsom
+   call :ExecuteCmd !NPM_CMD! install  jspm -g
+   echo jspm install
    call jspm  install --production
   
   IF !ERRORLEVEL! NEQ 0 goto error
