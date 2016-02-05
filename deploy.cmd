@@ -125,9 +125,9 @@ IF EXIST "%DEPLOYMENT_TARGET%\app\package.json" (
 echo 5. Gulp build
  IF EXIST "%DEPLOYMENT_TARGET%\app\gulpfile.js" (
    
-  pushd "%DEPLOYMENT_TARGET%\app"
+     pushd "%DEPLOYMENT_TARGET%\app"
     call :ExecuteCmd !NPM_CMD! install gulp
-      call :ExecuteCmd "%DEPLOYMENT_SOURCE%\node_modules\.bin\gulp" build
+      call :ExecuteCmd ".\node_modules\.bin\gulp" build
     
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
