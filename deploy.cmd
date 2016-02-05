@@ -105,6 +105,16 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   popd
 )
 
+
+:: 4. Install npm packages in app
+echo Installing apm npm
+IF EXIST "%DEPLOYMENT_TARGET%\app\package.json" (
+   echo %DEPLOYMENT_TARGET%\app
+  pushd "%DEPLOYMENT_TARGET%\app"
+  call :ExecuteCmd !NPM_CMD! install --production
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Post deployment stub
