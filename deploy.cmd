@@ -111,7 +111,9 @@ IF EXIST "%DEPLOYMENT_TARGET%\app\package.json" (
    echo %DEPLOYMENT_TARGET%\app
   pushd "%DEPLOYMENT_TARGET%\app"
   call :ExecuteCmd !NPM_CMD! install --production
-  call  jspm install --production
+   call :ExecuteCmd !NPM_CMD! install  jspm
+   call :ExecuteCmd "%DEPLOYMENT_SOURCE%\node_modules\.bin\jspm"  install --production
+  
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
