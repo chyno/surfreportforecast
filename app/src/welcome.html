@@ -1,9 +1,8 @@
 <template>
     <section class="au-animate">
-        
-        <h2>${zip}</h2>
+
+        <h2>Readings for Zip ${zip}</h2>
         <div class="form-horizontal" role="form">
-            <h3>Current   </h3>
             <div>
                 <label for="sp" class="control-label">Wind Speed: </label>
                 <span>${currently.windSpeed}</span>
@@ -17,16 +16,38 @@
                 <span>${currently.temperature}</span>
             </div>
         </div>
-        
-         <div class="form-horizontal" role="form">
-            <h3>Forecast</h3>
-            <template repeat.for="forecast of forecasts">
-                 <div>
-                <label for="dr" class="control-label">Wind Speed: </label>
-                <span id="dr">${forecast.windSpeed}</span>
-            </div>
-            </template>
-        </div>
-        
+
+
+        <h3>Forecast</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Wind Speed</th>
+                    <th>Wind Bearing</th>
+                     <th>Temperature Minumum</th>
+                     <th>Temperature Max</th>
+                     <th>Date</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <template repeat.for="forecast of forecasts">
+                    <tr>
+                        <td>
+                            ${forecast.windSpeed}
+                        </td>
+                        <td>
+                            ${forecast.windBearing}
+                        </td>
+                        <td>
+                            ${forecast.temperatureMax}
+                        </td>
+                        <td>
+                            ${forecast.temperatureMin}
+                        </td>
+                        <td>${forecast.time}</td>
+                    </tr>
+
+                </template>
     </section>
 </template>
