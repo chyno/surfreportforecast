@@ -4,6 +4,8 @@
   "description": "surf report app",
   "main": "app",
   "scripts": {
+    "env": "env",
+    "predebug": "cd app && node_modules\\.bin\\gulp  build",
     "start": "node app.js",
     "start:dev": "node app.js 4000",
     "lint": "node node_modules\\jshint\\bin\\jshint .",
@@ -11,9 +13,9 @@
     "test": "node --harmony node_modules\\mocha\\bin\\mocha  ./test/*  --compilers js:mocha-traceur --watch ",
     "testw": "npm run test --  -R min -w",
     "watch:lint": "watch 'npm run lint'",
-    "watch:server": "nodemon  app.js"
+    "debug" : ".\\node_modules\\.bin\\nodemon app.js --watch .\\app\\src\\**\\*"
   },
-  "author": "John",
+  "author": "John Chynoweth",
   "license": "ISC",
   "dependencies": {
     "body-parser": "~1.8.1",
@@ -47,7 +49,7 @@
     "jshint-stylish": "^1.0.0",
     "jspm": "^0.16.13",
     "mocha-traceur": "^2.1.0",
-    "nodemon": "^1.8.0",
+    "nodemon": "^1.8.1",
     "object-assign": "^2.0.0",
     "run-sequence": "^1.0.2",
     "vinyl-paths": "^1.0.0",
