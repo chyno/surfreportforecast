@@ -173,3 +173,12 @@ div.au-stagger {
     opacity: 1;
   }
 }
+
+.control-label {
+    margin-right: .5em
+}
+
+.highlightrow
+{   
+    background-color: lightseagreen;
+}

@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var paths = require('../paths');
 var browserSync = require('browser-sync');
-var nodemon = require('gulp-nodemon');
+
 // this task utilizes the browsersync plugin
 // to create a dev server instance
 // at http://localhost:9000

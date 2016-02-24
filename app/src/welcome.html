@@ -2,37 +2,29 @@
     <section class="au-animate">
 
         <h2>Readings for Zip ${zip}</h2>
-        <div class="form-horizontal" role="form">
-            <div>
-                <label for="sp" class="control-label">Wind Speed: </label>
-                <span>${currently.windSpeed}</span>
-            </div>
-            <div>
-                <label for="dr" class="control-label">Wind Bearing: </label>
-                <span id="dr">${currently.windBearing}</span>
-            </div>
-            <div>
-                <label for="city" class="control-label">Temperature: </label>
-                <span>${currently.temperature}</span>
-            </div>
+        <div class="row">
+           
+           <div class="col-md-2" ><label for="sp" class="control-label" >Wind Speed: </label>${currently.windSpeed}</div>
+           <div class="col-md-2"><label for="dr" class="control-label">Wind Bearing: </label> ${currently.windBearing}</div>
+           <div ><label for="city" class="control-label">Temperature: </label>${currently.temperature}</div>
+             
         </div>
 
-
-        <h3>Forecast</h3>
+        <h2>Forecast</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Wind Speed</th>
                     <th>Wind Bearing</th>
-                     <th>Temperature Minumum</th>
-                     <th>Temperature Max</th>
+                     <th>Max Temperature</th>
+                     <th>Min Temperature</th>
                      <th>Date</th>
 
                 </tr>
             </thead>
             <tbody>
                 <template repeat.for="forecast of forecasts">
-                    <tr>
+                    <tr class="${forecast.windSpeed > 15 ? 'highlightrow' : ''}">
                         <td>
                             ${forecast.windSpeed}
                         </td>
