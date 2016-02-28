@@ -1,17 +1,15 @@
 var express = require('express');
 var http = require('requestify');
 var router = express.Router();
-
-
 var DocumentDBClient = require('documentdb').DocumentClient;
 var config = require('./config');
 var TaskList = require('./zipList');
 var ZipDao = require('./zipDao');
- 
+var key = "0f9877d63b94697f985124d9cbb9c6cb";
 var lat = "38";
 var long = "-77";
-/* GET users listing. */
 
+/* GET users listing. */
 var docDbClient = new DocumentDBClient(config.host, {
     masterKey: config.authKey
 });
@@ -27,28 +25,15 @@ router.get('/', function(req, res) {
   res.redirect('app/');
 });
 
+
+
 /* GET welcome view */
 router.get('/views/welcome', function(req, res) {
   res.render('welcome', {nodePort: require('../app').get('port')});
 });
 
 router.get('/api/zip/:id', zipList.showZip.bind(zipList));
-/*
-router.get('/api/zip/:id', function(req, res) {
-    
-    var client = new DocumentClient(host, {masterKey: masterKey});
-    var data = [
-        {id : "1" , name : "zip 1"},
-        {id : "2", name : "zip 2"}
-    ];
-    
-    var id = req.params.id;
-    var result = data.filter(x => x.id === id);
-    
-    res.json    (result);  
-  
-});
-*/
+
 
 router.get('/api/forecast', function(req, res) {
    var path = "/forecast/" + key + "/" + lat + "," + long;
@@ -57,7 +42,6 @@ router.get('/api/forecast', function(req, res) {
    http.get(host + path).then(function(response) {
        res.json(response.getBody());
    });
-    
-    //res.json({ msg: host + path});
+   
 });
 module.exports = router;
