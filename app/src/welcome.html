@@ -1,7 +1,14 @@
 <template>
     <section class="au-animate">
-
-        <h2>Readings for Zip ${zip}</h2>
+        <div class="row">
+            <h2 class="col-md-4">Surf Reading Readings</h2>
+            <div class="col-md-8" >
+                <label for="txtZip">Zip</label>
+                <input type="text" id="txtZip" value.bind="zip" >
+                <button class="click.trigger=showReadings"></button>
+             </div>
+        </div>
+        
         <div class="row">
            
            <div class="col-md-2" ><label for="sp" class="control-label" >Wind Speed: </label>${currently.windSpeed}</div>

@@ -7,20 +7,41 @@ export class Welcome {
     constructor(httpClient) {
         this.httpClient = httpClient;
         this.zip = '22207';
-    
-       this.heading = 'Current Forecast';
-       this.currently;
-       this.forecasts;
+
+        this.heading = 'Current Forecast';
+        this.currently;
+        this.forecasts;
     }
 
     activate() {
         ///api/forecast     
         return this.httpClient.fetch("api/forecast")
-        .then(response => response.json())
-        .then(data => {
-          this.currently = data.currently;
-          this.forecasts = data.daily.data;
-         
-        });
+            .then(response => response.json())
+            .then(data => {
+                this.currently = data.currently;
+                this.forecasts = data.daily.data;
+
+            });
+    }
+
+    showReadings() {
+
+        var lat, long;
+         return this.httpClient.fetch("api/zip/" + this.zip)
+            .then(response => response.json())
+            .then(data => {
+
+                lat = data.latitude;
+                long = data.longitude;
+
+                this.httpClient.fetch("api/forecast")
+                    .then(response => response.json())
+                    .then(data => {
+                        this.currently = data.currently;
+                        this.forecasts = data.daily.data;
+
+                    });
+            });
+
     }
 }
