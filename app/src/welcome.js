@@ -15,33 +15,23 @@ export class Welcome {
 
     activate() {
         ///api/forecast     
-        return this.httpClient.fetch("api/forecast")
+        return this.httpClient.fetch("api/zip/" + this.zip)
             .then(response => response.json())
             .then(data => {
                 this.currently = data.currently;
                 this.forecasts = data.daily.data;
-
             });
+
     }
 
     showReadings() {
-
-        var lat, long;
-         return this.httpClient.fetch("api/zip/" + this.zip)
+        return this.httpClient.fetch("api/zip/" + this.zip)
             .then(response => response.json())
             .then(data => {
-
-                lat = data.latitude;
-                long = data.longitude;
-
-                this.httpClient.fetch("api/forecast")
-                    .then(response => response.json())
-                    .then(data => {
-                        this.currently = data.currently;
-                        this.forecasts = data.daily.data;
-
-                    });
+                this.currently = data.currently;
+                this.forecasts = data.daily.data;
             });
+
 
     }
 }
