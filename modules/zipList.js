@@ -9,6 +9,7 @@ function ZipList(taskDao) {
  
 ZipList.prototype = {
     renderLocation: function (req, res) {
+        var item;
         var self = this;
         var id = req.params.id;
         var querySpec = {
@@ -26,9 +27,13 @@ ZipList.prototype = {
             if (err) {
                 throw (err);
             }
+            
+            item = items[0];
             //res.json(items[0]);
           //Render the forcast call 
-          forcast.showForcast(items[0], function(forcast) {
+          forcast.showForcast(item, function(forcast) {
+                  forcast.city = item.city;
+                  forcast.state = item.state;
                   res.json(forcast);
              });
              

@@ -15,8 +15,6 @@ var zipDao = new ZipDao(docDbClient, config.databaseId, config.collectionId);
 zipDao.init();
 var zipList = new ZipList(zipDao);
 
-
-
 router.get('/api/demo', function (req, res) {
     res.json({ msg: 'From the Node-Backend' });
 });
@@ -32,9 +30,4 @@ router.get('/views/welcome', function (req, res) {
 });
 
 router.get('/api/zip/:id', zipList.renderLocation.bind(zipList));
-
-
-
-
-
 module.exports = router;

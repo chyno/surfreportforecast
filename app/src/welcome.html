@@ -2,13 +2,17 @@
     <section class="au-animate">
         <div class="row">
             <h2 class="col-md-4">Surf Reading Readings</h2>
-            <div class="col-md-8" >
-                <label for="txtZip">Zip</label>
-                <input type="text" id="txtZip" value.bind="zip" >
-                <button class="click.trigger=showReadings"></button>
+            <div class="col-md-8"  >
+                <label class="control-label" for="txtZip" style="margin-top:1.5em">Zip</label>
+                <input type="text" class="control-label" id="txtZip" value.bind="zip" >
+                <button click.delegate="click.trigger=showReadings()" class="control-label" >Select</button>
+                
+                 <label class="control-label" for="txtZip" style="margin-top:1.5em">City</label>${city}
+                  <label class="control-label" for="txtZip" style="margin-top:1.5em">State</label>${state}
+                
              </div>
         </div>
-        
+        <hr style="margin: 0 !imprortant">
         <div class="row">
            
            <div class="col-md-2" ><label for="sp" class="control-label" >Wind Speed: </label>${currently.windSpeed}</div>
