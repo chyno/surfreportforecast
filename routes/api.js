@@ -17,9 +17,9 @@ zipDao = new SurfDao(docDbClient, config.databaseId, config.zipCollectionId);
 zipDao.init();
 zipList = new ZipList(zipDao);
 
-userDao = new SurfDao(docDbClient, config.databaseId, config.userCollectionId);
-userDao.init();
-userLocation = new UserLocations(userDao);
+//userDao = new SurfDao(docDbClient, config.databaseId, config.userCollectionId);
+//userDao.init();
+//userLocation = new UserLocations(userDao);
 
  
 router.get('/', function (req, res) {
