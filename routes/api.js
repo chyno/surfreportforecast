@@ -32,8 +32,8 @@ router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
 
 
 //Current User Items getUserLocations
-router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
-router.post('/api/userLocation/:id', userLocation.addUserLocation.bind(userLocation));
-router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
+//router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
+//router.post('/api/userLocation/:id', userLocation.addUserLocation.bind(userLocation));
+//router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
 
 module.exports = router;

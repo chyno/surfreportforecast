@@ -1,0 +1,25 @@
+<template>
+    <h3>User ${userName}</h3>
+    <h3>Current Locations</h3>
+    <table>
+     <thead>
+         <tr>
+             <th>City</th>
+             <th>State</th> 
+             <th>Zip</th>
+             <th>
+                 
+             </th>
+         </tr>
+         <tr repeat.for="location of locations">
+             <td>${location.city}</td>
+             <td>${location.state}</td>
+             <td>${location.zip}</td>
+             <td><button  click.delegate="removeLocation">Remove</button></td>
+         </tr>
+     </thead>   
+     </table>
+     <h3>Available Locations</h3>
+     <input type="text">
+     <button click.delegate="AddLocation">Add</button>
+</template>
