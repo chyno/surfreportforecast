@@ -3,7 +3,7 @@ export class App {
     config.title = 'Surf Report';
     config.map([
       { route: ['', 'welcome'], name: 'welcome', moduleId: 'welcome',  nav: true, title: 'Reading' },
-      { route: ['login'], name: 'login',  moduleId: 'login', nav: true, title: 'Login' }
+      { route: ['manage'], name: 'manage',  moduleId: 'manage', nav: true, title: 'Manage Locations' }
       
     ]);
 

@@ -16,7 +16,6 @@ export class Welcome {
 
     activate() {
         return this.reenderReults(this.httpClient)
-
     }
 
     showReadings() {
@@ -24,8 +23,7 @@ export class Welcome {
     }
 
     reenderReults(httpClient) {
-
-        return httpClient.fetch("api/zip/" + this.zip)
+         return httpClient.fetch("api/zip/" + this.zip)
             .then(response => response.json())
             .then(data => {
                 this.city = data.city;
@@ -33,6 +31,5 @@ export class Welcome {
                 this.currently = data.currently;
                 this.forecasts = data.daily.data;
             });
-
     }
 }
