@@ -40,7 +40,17 @@ UserLocations.prototype = {
     },
 
     addUserLocation: function (req, res) {
-       
+        if (!req.body) {
+             res.send('No body');
+        }
+        else {
+            self.userDao.addItem(req.body, function (err) {
+                if (err) {
+                    throw (err);
+                }
+                res.json({});
+            });
+        }
     },
 
     deleteUserLocation: function (req, res) {

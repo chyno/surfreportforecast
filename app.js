@@ -33,9 +33,16 @@ var debug = require('debug')('aurelia-node');
 
 app.set('port', process.env.PORT || 9000);
 
-var server = app.listen(app.get('port'), function() {
+
+var server = app.listen(app.get('port'), function(err) {
+    
+    if (err)
+    {
+        console.log('Error: ' + err );
+    }
   debug('Express server listening on port ' + server.address().port);
-  console.log('Express server listening on port: ' + server.address().port);
+ console.log('Express server listening on port: ' + server.address().port);
+ 
 });
 
 
