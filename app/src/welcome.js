@@ -6,7 +6,7 @@ export class Welcome {
 
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.zip = '22207';
+        this.zip = "22207";
         this.heading = 'Current Forecast';
         this.currently;
         this.forecasts;
@@ -23,6 +23,9 @@ export class Welcome {
     }
 
     reenderReults(httpClient) {
+        
+        if (!this.zip)
+        {return;}
          return httpClient.fetch("api/zip/" + this.zip)
             .then(response => response.json())
             .then(data => {

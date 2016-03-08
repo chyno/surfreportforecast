@@ -1,24 +1,39 @@
 <template>
     <section class="au-animate">
-        <div class="row">
-            <h2 class="col-md-4">Surf Reading Readings</h2>
-            <div class="col-md-8"  >
-                <label class="control-label" for="txtZip" style="margin-top:1.5em">Zip</label>
-                <input type="text" class="control-label" id="txtZip" value.bind="zip" >
-                <button click.delegate="click.trigger=showReadings()" class="control-label" >Select</button>
+        <div class="row" style="margin-top:1.5em">
+         
+            <div class="col-md-4">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputAmount">ZIP</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">Zip</div>
+                            <input type="text" class="form-control" id="txtZip" value.bind="zip" plavceholder="Zip">
+
+                        </div>
+                        <button click.delegate="click.trigger=showReadings()" class="btn btn-primary">Select</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-8">
                 
-                 <label class="control-label" for="txtZip" style="margin-top:1.5em">City</label>${city}
-                  <label class="control-label" for="txtZip" style="margin-top:1.5em">State</label>${state}
+              
+                    <label class="control-label" class="sr-only" for="city" >City</label> <span id="city" class="label label-default">${city}</span>
+                    <label class="control-label" class="sr-only" for="state">State</label><span id="state" class="label label-default">${state} </span>
                 
-             </div>
+                 
+            </div>
         </div>
         <hr style="margin: 0 !imprortant">
         <div class="row">
-           
-           <div class="col-md-2" ><label for="sp" class="control-label" >Wind Speed: </label>${currently.windSpeed}</div>
-           <div class="col-md-2"><label for="dr" class="control-label">Wind Bearing: </label> ${currently.windBearing}</div>
-           <div ><label for="city" class="control-label">Temperature: </label>${currently.temperature}</div>
-             
+            <div class="col-md-2">
+                <label for="sp" class="control-label">Wind Speed: </label><span class="label label-default">${currently.windSpeed}</span></div>
+            <div class="col-md-2">
+                <label for="dr" class="control-label">Wind Bearing: </label> <span class="label label-default">${currently.windBearing}</span></div>
+            <div>
+                <label for="city" class="control-label">Temperature: </label><span class="label label-default">${currently.temperature}</span></div>
+
         </div>
 
         <h2>Forecast</h2>
@@ -27,15 +42,15 @@
                 <tr>
                     <th>Wind Speed</th>
                     <th>Wind Bearing</th>
-                     <th>Max Temperature</th>
-                     <th>Min Temperature</th>
-                     <th>Date</th>
+                    <th>Max Temperature</th>
+                    <th>Min Temperature</th>
+                    <th>Date</th>
 
                 </tr>
             </thead>
             <tbody>
                 <template repeat.for="forecast of forecasts">
-                    <tr class="${forecast.windSpeed > 15 ? 'highlightrow' : ''}">
+                    <tr class="${forecast.windSpeed > 15 ? 'success' : ''}">
                         <td>
                             ${forecast.windSpeed}
                         </td>
