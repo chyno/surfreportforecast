@@ -1,14 +1,14 @@
 <template>
     <section class="au-animate">
         <div class="row" style="margin-top:1.5em">
-         
+
             <div class="col-md-4">
                 <form class="form-inline">
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputAmount">ZIP</label>
                         <div class="input-group">
                             <div class="input-group-addon">Zip</div>
-                            <input type="text" class="form-control" id="txtZip" value.bind="zip" plavceholder="Zip">
+                            <input type="text" class="form-control" id="txtZip" value.bind="zip" placeholder="Zip">
 
                         </div>
                         <button click.delegate="click.trigger=showReadings()" class="btn btn-primary">Select</button>
@@ -17,12 +17,8 @@
                 </form>
             </div>
             <div class="col-md-8">
-                
-              
-                    <label class="control-label" class="sr-only" for="city" >City</label> <span id="city" class="label label-default">${city}</span>
-                    <label class="control-label" class="sr-only" for="state">State</label><span id="state" class="label label-default">${state} </span>
-                
-                 
+                <label class="control-label" class="sr-only" for="city">City</label> <span id="city" class="label label-default">${city}</span>
+                <label class="control-label" class="sr-only" for="state">State</label><span id="state" class="label label-default">${state} </span>
             </div>
         </div>
         <hr style="margin: 0 !imprortant">
@@ -33,8 +29,7 @@
                 <label for="dr" class="control-label">Wind Bearing: </label> <span class="label label-default">${currently.windBearing}</span></div>
             <div>
                 <label for="city" class="control-label">Temperature: </label><span class="label label-default">${currently.temperature}</span></div>
-
-        </div>
+               </div>
 
         <h2>Forecast</h2>
         <table class="table table-bordered">

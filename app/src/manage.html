@@ -1,25 +1,43 @@
 <template>
-    <h3>User ${userName}</h3>
-    <h3>Current Locations</h3>
-    <table>
-     <thead>
-         <tr>
-             <th>City</th>
-             <th>State</th> 
-             <th>Zip</th>
-             <th>
-                 
-             </th>
-         </tr>
-         <tr repeat.for="location of locations">
-             <td>${location.city}</td>
-             <td>${location.state}</td>
-             <td>${location.zip}</td>
-             <td><button  click.delegate="removeLocation">Remove</button></td>
-         </tr>mm
-     </thead>   
-     </table>
-     <h3>Available Locations</h3>
-     <input type="text">
-     <button click.delegate="AddLocation">Add</button>
+    <div style="margin:2em">
+        <label class="control-label" class="sr-only" for="user">User:</label> <span id="user" class="label label-success">${userName}</span>
+
+        <h3>Current Locations</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th>
+
+                    </th>
+                </tr>
+                <tr repeat.for="location of locations">
+                    <td>${location.city}</td>
+                    <td>${location.state}</td>
+                    <td>${location.zip}</td>
+                    <td>
+                        <button click.delegate="removeLocation(1)">Remove</button>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputAmount">Available Locations</label>
+                <div class="input-group">
+                    <div class="input-group-addon">Locations</div>
+                    <select class="form-control" id="slcLocations">
+                        <option repeat.for="location of locations" value.bind="location">${location.city}</option>
+                    </select>
+
+                </div>
+                <button click.delegate="addLocation()" class="btn btn-primary">Add</button>
+            </div>
+
+        </form>
+
+    </div>
 </template>

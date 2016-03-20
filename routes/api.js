@@ -9,17 +9,22 @@ var DocumentDBClient = require('documentdb').DocumentClient;
 var config = require('../modules/db/config');
 var zipDao, userDao, zipList, userLocation ;
 
+
+var erroLog = function(err)
+{
+     console.log(err);
+}
 /* GET users listing. */
 var docDbClient = new DocumentDBClient(config.host, {
     masterKey: config.authKey
 });
 
 zipDao = new SurfDao(docDbClient, config.databaseId, config.zipCollectionId);
-zipDao.init();
+zipDao.init(erroLog);
 zipList = new ZipList(zipDao);
 
 userDao = new SurfDao(docDbClient, config.databaseId, config.userCollectionId);
-userDao.init();
+userDao.init(erroLog);
 userLocation = new UserLocations(userDao);
 
  
@@ -34,7 +39,7 @@ router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
 
 //Current User Items getUserLocations
 router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
-router.post('/api/userLocation/:id', userLocation.addUserLocation.bind(userLocation));
+router.post('/api/userLocation', userLocation.addUserLocation.bind(userLocation));
 router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
 
 module.exports = router;
