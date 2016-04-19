@@ -2,6 +2,7 @@ var DocumentDBClient = require('documentdb').DocumentClient;
 
 var DocDBUtils = {
     getOrCreateDatabase: function (client, databaseId, callback) {
+       console.log('get ro creating database');
         var querySpec = {
             query: 'SELECT * FROM root r WHERE r.id=@id',
             parameters: [{
@@ -11,6 +12,7 @@ var DocDBUtils = {
         };
 
         client.queryDatabases(querySpec).toArray(function (err, results) {
+             
             if (err) {
                 callback(err);
 

@@ -13,18 +13,23 @@ function SurfDao(documentDBClient, databaseId, collectionId) {
 SurfDao.prototype = {
     init: function (callback) {
         var self = this;
-
+        console.log(docdbUtils);
+        
         docdbUtils.getOrCreateDatabase(self.client, self.databaseId, function (err, db) {
             if (err) {
+                console.log('Error: ' + err)
                 callback(err);
 
             } else {
+                 console.log('Getting database');
                 self.database = db;
                 docdbUtils.getOrCreateCollection(self.client, self.database._self, self.collectionId, function (err, coll) {
                     if (err) {
+                         console.log('Error: ' + err)
                         callback(err);
 
                     } else {
+                         console.log('cokkection: ' + coll.toString())
                         self.collection = coll;
                     }
                 });

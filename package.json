@@ -6,7 +6,7 @@
   "scripts": {
     "env": "env",
     "predebug": "cd app && node_modules\\.bin\\gulp  build",
-    "start": "node app.js",
+    "start": "node test.js",
     "start:dev": "node app.js 4000",
     "lint": "node node_modules\\jshint\\bin\\jshint .",
     "pretest": "npm run lint",
@@ -27,6 +27,8 @@
     "github": "^0.2.4",
     "github-download": "*",
     "mocha": "^2.3.3",
+    "ramda-fantasy": "^0.4.1",
+    "ramda-maybe": "^0.18.0",
     "request-promise": "^1.0.2",
     "requestify": "^0.1.17",
     "require-dir": "^0.3.0",
