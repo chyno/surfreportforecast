@@ -8,14 +8,11 @@ var getDbClient;
 var docdbUtils = require('./docdbUtils');
 
 
-var client = docdbUtils.getDbClient(config);
-
-docdbUtils.getDatabaseAsync(client, config).then((db) => 
-{
-  docdbUtils.getCollection(client, db._self, config.userCollectionId).then((collection) => {
-     console.log(collection); 
-  });    
+var client = docdbUtils.getConfiguredCollectionAsync(config).then((collection) => {
+    console.log(collection);
 });
+
+
 
 
 

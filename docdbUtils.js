@@ -1,18 +1,14 @@
 
 var DocumentDBClient = require('documentdb').DocumentClient;
 
-
-
-var DocDBUtils =  {
-    
-   getDbClient : (cnf) => {
-       return new DocumentDBClient(cnf.host, {
+function getDbClient(cnf) {
+    return new DocumentDBClient(cnf.host, {
         masterKey: cnf.authKey
     });
-   },
+};
 
- 
- getDatabaseAsync : (dbClient, config) => {
+
+function getDatabaseAsync(dbClient, config) {
     var databaseId = config.databaseId;
     console.log('creating database');
     var querySpec = {
@@ -24,7 +20,7 @@ var DocDBUtils =  {
     };
 
     return new Promise((resolve, reject) => {
-          dbClient.queryDatabases(querySpec)
+        dbClient.queryDatabases(querySpec)
             .toArray(function (err, results) {
                 if (err) {
                     reject(err);
@@ -35,12 +31,12 @@ var DocDBUtils =  {
                 }
             });
     });
-},
+};
 
 
-getCollection : (dbClient, databaseLink, collectionId) => {
+function getCollection(dbClient, databaseLink, collectionId) {
     //client, databaseLink, collectionId, callback
-     var col;  
+    var col;
     var querySpec = {
         query: 'SELECT * FROM root r WHERE r.id=@id',
         parameters: [{
@@ -49,7 +45,7 @@ getCollection : (dbClient, databaseLink, collectionId) => {
         }]
     };
     return new Promise((resolve, reject) => {
-         dbClient.queryCollections(databaseLink, querySpec).toArray(function (err, results) {
+        dbClient.queryCollections(databaseLink, querySpec).toArray(function (err, results) {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -60,8 +56,22 @@ getCollection : (dbClient, databaseLink, collectionId) => {
             }
         });
     });
-}
+};
 
+var DocDBUtils = {
+    getConfiguredCollectionAsync: (config) => {
+        var client = getDbClient(config);
+        return new Promise((resolve, reject) => {
+             getDatabaseAsync(client, config).then((db) => {
+                getCollection(client, db._self, config.userCollectionId).then((collection) => {
+                    resolve(collection);
+                });
+            });
+        });
+
+
+
+    }
 };
 
 
