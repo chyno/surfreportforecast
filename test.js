@@ -8,9 +8,9 @@ var getDbClient;
 var docdbUtils = require('./docdbUtils');
 
 
-var client = docdbUtils.getConfiguredCollectionAsync(config).then((collection) => {
-    console.log(collection);
-});
+var client = docdbUtils.getZips(config, '22207').then((zips) => {
+    console.log(zips);
+}).catch(reason => system.config(reason));
 
 
 

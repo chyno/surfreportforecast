@@ -34,7 +34,7 @@ function getDatabaseAsync(dbClient, config) {
 };
 
 
-function getCollection(dbClient, databaseLink, collectionId) {
+function getCollectionAsync(dbClient, databaseLink, collectionId) {
     //client, databaseLink, collectionId, callback
     var col;
     var querySpec = {
@@ -58,21 +58,48 @@ function getCollection(dbClient, databaseLink, collectionId) {
     });
 };
 
-var DocDBUtils = {
-    getConfiguredCollectionAsync: (config) => {
-        var client = getDbClient(config);
-        return new Promise((resolve, reject) => {
-             getDatabaseAsync(client, config).then((db) => {
-                getCollection(client, db._self, config.userCollectionId).then((collection) => {
-                    resolve(collection);
-                });
-            });
-        });
+function rejectWithLog(reason, fn) {
+    console.error('An error occurred', reason);
+    fn(reason); 
+}
 
-
-
-    }
+function getConfiguredCollectionAsync(client, config) {
+    
+    return new Promise((resolve, reject) => {
+        getDatabaseAsync(client, config).then((db) => {
+            getCollectionAsync(client, db._self, config.zipCollectionId).then((collection) => {
+                resolve(collection);
+            }).catch(reason => rejectWithLog(reason, reject));
+        }).catch(reason => rejectWithLog(reason, reject));
+    });
 };
 
+var DocDBUtils = {
+    getZips(config, zip) {
+      var querySpec = {
+            query: 'SELECT * FROM c WHERE c.zip = @zip',
+            parameters: [{
+                name: '@zip',
+                value: '22207'
+            }]
+        };
+        
+        var client = getDbClient(config);
+        return new Promise((resolve, reject) => {
+            getConfiguredCollectionAsync(client, config).then((collection) => {
+                client.queryDocuments(collection._self, querySpec).toArray(function (err, results) {
+                    if (err) {
+                        reject(err);
+                     } else {
+                        resolve(results);
+                    }
+                });
+            }).catch(reason => rejectWithLog(reason, reject));
+        });
+    },
+    
+    rejectWithLog : rejectWithLog
+
+};
 
 module.exports = DocDBUtils;
