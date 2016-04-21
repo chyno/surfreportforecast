@@ -66,6 +66,7 @@ var DocDBUtils = {
             }
         });
     }
+
 };
 
 module.exports = DocDBUtils;
