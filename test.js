@@ -6,19 +6,21 @@ var docdbUtils = require('./docdbUtils');
 var http = require('requestify');
 var key = "0f9877d63b94697f985124d9cbb9c6cb";
 
-/*
+
 function showForcastList(location) {
-     console.log(location);
+   
    var lat = location.latitude;
     var long = location.longitude;
     var path = "/forecast/" + key + "/" + lat + "," + long;
     var host = 'https://api.forecast.io';
-    
+     var fullpath = host + path;
+     
     return new Promise((resolve, reject) => { 
-         var fullpath = host + path;
-          console.log('Path: ' + fullpath);
+        
         http.get(host + path).then((response) => {
-             resolve(response.getBody()); 
+            var rspBody = response.getBody();
+            //console.log(rspBody);
+             resolve(rspBody); 
           }, (reason) => {
                 console.log('rejecting ..');
              reject(reason); 
@@ -29,6 +31,7 @@ function showForcastList(location) {
         
 } 
 
+/*
 var client = docdbUtils.getZips(config, '22207').then((zips) => {
     showForcastList(zips[0]).then((forcast) =>{
         console.log(forcast);
@@ -36,10 +39,10 @@ var client = docdbUtils.getZips(config, '22207').then((zips) => {
         console.log(reason);
     });
 }).catch(reason => system.config(reason));
-
-
-
 */
+
+
+
 
 var currentlyPath = R.lensPath(['currently']);
 var forecastPath = R.lensPath(['daily', 'data']);
@@ -53,8 +56,23 @@ var createVM = R.curry( (vm,d) =>
 }
 );
 
+var ans = R.composeP(showForcastList, docdbUtils.getZips);
+ 
+
+ ans('22207').then((x) => {
+     var result = createVM({},x);
+     console.log(result);
+     
+ });
+ 
+/*
+ans("22207").then((loc) => {
+    var vm = createVM({},loc);
+    console.log( vm.toString());
+});
+*/
 
 //var rv = R.view(dailyPath);
 
-console.log(createVM({},data));
+//console.log(createVM({},data));
 //console.log(R.view(currentlyPath,data));

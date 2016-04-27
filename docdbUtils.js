@@ -1,5 +1,6 @@
 
 var DocumentDBClient = require('documentdb').DocumentClient;
+var config = require('./modules/db/config');
 
 function getDbClient(cnf) {
     return new DocumentDBClient(cnf.host, {
@@ -8,9 +9,9 @@ function getDbClient(cnf) {
 };
 
 
-function getDatabaseAsync(dbClient, config) {
+function getDatabaseAsync(dbClient) {
     var databaseId = config.databaseId;
-    console.log('creating database');
+  //  console.log('creating database');
     var querySpec = {
         query: 'SELECT * FROM root r WHERE r.id=@id',
         parameters: [{
@@ -75,7 +76,7 @@ function getConfiguredCollectionAsync(client, config) {
 };
 
 var DocDBUtils = {
-    getZips(config, zip) {
+    getZips(zip) {
       var querySpec = {
             query: 'SELECT * FROM c WHERE c.zip = @zip',
             parameters: [{
@@ -91,7 +92,7 @@ var DocDBUtils = {
                     if (err) {
                         reject(err);
                      } else {
-                        resolve(results);
+                        resolve(results[0]);
                     }
                 });
             }).catch(reason => rejectWithLog(reason, reject));
