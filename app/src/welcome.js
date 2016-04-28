@@ -23,8 +23,8 @@ export class Welcome {
     }
 
     reenderReults(httpClient) {
-        
-        if (!this.zip)
+     /*
+     if (!this.zip)
         {return;}
          return httpClient.fetch("api/zip/" + this.zip)
             .then(response => response.json())
@@ -34,5 +34,6 @@ export class Welcome {
                 this.currently = data.currently;
                 this.forecasts = data.daily.data;
             });
+            */
     }
 }

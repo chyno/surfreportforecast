@@ -7,12 +7,12 @@
     "navigation",
     "skeleton"
   ],
-  "homepage": "http://aurelia.io",
+  "homepage": "http://chyno logic.io",
   "bugs": {
     "url": "https://github.com/aurelia/skeleton-navigation/issues"
   },
   "license": "CC0-1.0",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
+  "author": "John Chynoweth",
   "main": "dist/main.js",
   "repository": {
     "type": "git",

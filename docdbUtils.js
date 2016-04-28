@@ -1,6 +1,17 @@
 
+"use strict";
+
+
+//var M = require('ramda-fantasy').Maybe;
+var R = require('ramda');
+var http = require('requestify');
+var key = "0f9877d63b94697f985124d9cbb9c6cb";
 var DocumentDBClient = require('documentdb').DocumentClient;
 var config = require('./modules/db/config');
+
+var currentlyPath = R.lensPath(['currently']);
+var forecastPath = R.lensPath(['daily', 'data']);
+
 
 function getDbClient(cnf) {
     return new DocumentDBClient(cnf.host, {
@@ -11,7 +22,7 @@ function getDbClient(cnf) {
 
 function getDatabaseAsync(dbClient) {
     var databaseId = config.databaseId;
-  //  console.log('creating database');
+    //  console.log('creating database');
     var querySpec = {
         query: 'SELECT * FROM root r WHERE r.id=@id',
         parameters: [{
@@ -52,8 +63,8 @@ function getCollectionAsync(dbClient, databaseLink, collectionId) {
                 reject(err);
 
             } else {
-                col = results[0];
-                resolve(col);
+                let result = results[0];
+                resolve(result);
             }
         });
     });
@@ -61,11 +72,11 @@ function getCollectionAsync(dbClient, databaseLink, collectionId) {
 
 function rejectWithLog(reason, fn) {
     console.error('An error occurred', reason);
-    fn(reason); 
+    fn(reason);
 }
 
 function getConfiguredCollectionAsync(client, config) {
-    
+
     return new Promise((resolve, reject) => {
         getDatabaseAsync(client, config).then((db) => {
             getCollectionAsync(client, db._self, config.zipCollectionId).then((collection) => {
@@ -77,29 +88,62 @@ function getConfiguredCollectionAsync(client, config) {
 
 var DocDBUtils = {
     getZips(zip) {
-      var querySpec = {
+        var querySpec = {
             query: 'SELECT * FROM c WHERE c.zip = @zip',
             parameters: [{
                 name: '@zip',
                 value: '22207'
             }]
         };
-        
+
         var client = getDbClient(config);
         return new Promise((resolve, reject) => {
             getConfiguredCollectionAsync(client, config).then((collection) => {
                 client.queryDocuments(collection._self, querySpec).toArray(function (err, results) {
                     if (err) {
                         reject(err);
-                     } else {
-                        resolve(results[0]);
+                    } else {
+                        let result = results[0];
+                        resolve(result);
                     }
                 });
             }).catch(reason => rejectWithLog(reason, reject));
         });
     },
+
+    showForcastList(location) {
+
+        var lat = location.latitude;
+        var long = location.longitude;
+        var path = "/forecast/" + key + "/" + lat + "," + long;
+        var host = 'https://api.forecast.io';
+        var fullpath = host + path;
+
+        return new Promise((resolve, reject) => {
+            http.get(host + path).then((response) => {
+                let rspBody = response.getBody();
+                rspBody.city = location.city;
+                rspBody.state = location.state;
+
+
+                resolve(rspBody);
+            }, (reason) => {
+                console.log('rejecting ....');
+                reject(reason);
+            });
+        });
+    },
     
-    rejectWithLog : rejectWithLog
+    createVM :
+    R.curry((vm, d) => {
+        vm.city = d.city;
+        vm.state =d.state;
+        vm.forecast = R.view(forecastPath, d);
+        vm.currently = R.view(currentlyPath, d);
+        return vm;
+    }),
+    
+    rejectWithLog: rejectWithLog
 
 };
 
