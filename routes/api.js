@@ -52,7 +52,7 @@ var forcastCalc = R.composeP(docdbUtils.showForcastList, docdbUtils.getZips);
 //router.get('/api/zip/:id', zipList.renderPossibleLocations.bind(zipList));
 //router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
 
-router.get('/api/zip/:id', zipList.renderLocation.bind(zipList));
+router.get('/api/zip/:id',renderPossibleLocations.bind(this));
 router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
 
 //Current User Items getUserLocations

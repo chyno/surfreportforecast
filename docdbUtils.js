@@ -59,7 +59,7 @@ function getCollectionAsync(dbClient, databaseLink, collectionId) {
     return new Promise((resolve, reject) => {
         dbClient.queryCollections(databaseLink, querySpec).toArray(function (err, results) {
             if (err) {
-                console.log(err);
+               // console.log(err);
                 reject(err);
 
             } else {
@@ -71,7 +71,7 @@ function getCollectionAsync(dbClient, databaseLink, collectionId) {
 };
 
 function rejectWithLog(reason, fn) {
-    console.error('An error occurred', reason);
+    //console.error('An error occurred', reason);
     fn(reason);
 }
 
@@ -92,7 +92,7 @@ var DocDBUtils = {
             query: 'SELECT * FROM c WHERE c.zip = @zip',
             parameters: [{
                 name: '@zip',
-                value: '22207'
+                value: zip
             }]
         };
 
@@ -128,7 +128,7 @@ var DocDBUtils = {
 
                 resolve(rspBody);
             }, (reason) => {
-                console.log('rejecting ....');
+               // console.log('rejecting ....');
                 reject(reason);
             });
         });

@@ -15,25 +15,26 @@ export class Welcome {
     }
 
     activate() {
-        return this.reenderReults(this.httpClient)
+        return this.reenderReults();
     }
 
     showReadings() {
-        this.reenderReults(this.httpClient);
+        this.reenderReults();
     }
 
     reenderReults(httpClient) {
-     /*
+     
      if (!this.zip)
         {return;}
-         return httpClient.fetch("api/zip/" + this.zip)
+         
+        return httpClient.fetch("api/zip/" + this.zip)
             .then(response => response.json())
             .then(data => {
                 this.city = data.city;
                 this.state = data.state;
                 this.currently = data.currently;
-                this.forecasts = data.daily.data;
+                this.forecasts = data.forecast;
             });
-            */
+            
     }
 }
