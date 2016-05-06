@@ -1,7 +1,9 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 var http = require('requestify');
-var docdbUtils = require('../docdbUtils');
+var docdbUtils = require('../lib/docdbUtils');
 var R = require('ramda');
 var ZipList = require('../modules/zipList');
 var UserLocations = require('../modules/userLocations');
@@ -34,26 +36,24 @@ router.get('/', function (req, res) {
 });
 
 
-var forcastCalc = R.composeP(docdbUtils.showForcastList, docdbUtils.getZips);
- 
- var renderPossibleLocations = function (req, res) {
-        var self = this;
+var forcastCalc = R.composeP(docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
+var renderParamRequest = R.curry((fun, req, res) => {
+          var self = this;
         
         if(!req.params.id)
         { throw ("no parameter");}
         
-        forcastCalc(req.params.id).then((x) => {
+        fun(req.params.id).then((x) => {
         var result = docdbUtils.createVM({},x);
-        res.json(result); 
- });
- };  
-
+        res.json(result);  }); 
+    }
+);
 
 //router.get('/api/zip/:id', zipList.renderPossibleLocations.bind(zipList));
-//router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
-
-router.get('/api/zip/:id',renderPossibleLocations.bind(this));
 router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
+
+router.get('/api/zip/:id', renderParamRequest(forcastCalc));
+//router.get('/api/stateZips/:id', renderParamRequest(docdbUtils.getStateLocations));
 
 //Current User Items getUserLocations
 router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
