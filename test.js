@@ -6,7 +6,8 @@ var docdbUtils = require('./lib/docdbUtils');
 var fakeRes = {
     json(result)
     {
-        console.log(result)
+        console.log('rendering http result... ');
+        console.log(result.toString());
     }
 }
 
@@ -30,12 +31,8 @@ var renderParamRequest = R.curry((fun, req, res) => {
          
      });
 
-
+ 
 
 //router.get('/api/zip/:id', renderParamRequest(forcastCalc));
-// renderParamRequest(forcastCalc, {params: {id: '22207'}}, fakeRes);
-docdbUtils.getLatLongByZip('22207').then( (res) => {
-     console.log(res);
-}, (err) => {
-     console.log(err);
-});
+ renderParamRequest(forcastCalc, {params: {id: '22207'}}, fakeRes);
+ 

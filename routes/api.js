@@ -44,13 +44,13 @@ var renderParamRequest = R.curry((fun, req, res) => {
         { throw ("no parameter");}
         
         
-        res.json({foo : 'bar'});
-        /*
+       // res.json({foo : 'bar'});
+        
         fun(req.params.id).then((x) => {
             var result = docdbUtils.createVM({},x);
             res.json(result);  
         });
-        */
+        
          
      });
 

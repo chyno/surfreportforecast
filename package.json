@@ -7,7 +7,7 @@
     "env": "env",
     "predebug": "cd app && node_modules\\.bin\\gulp  build",
     "prestartxx": "restart --watch routes\\api.js --exec node app.js",
-    "start": "node test.js",
+    "start": "node app.js",
     "start:dev": "node app.js 4000",
     "lint": "node node_modules\\jshint\\bin\\jshint .",
     "pretest": "npm run lint",
