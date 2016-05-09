@@ -38,16 +38,22 @@ router.get('/', function (req, res) {
 
 var forcastCalc = R.composeP(docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
 var renderParamRequest = R.curry((fun, req, res) => {
-          var self = this;
         
-        if(!req.params.id)
+   
+       if(!req.params.id)
         { throw ("no parameter");}
         
+        
+        res.json({foo : 'bar'});
+        /*
         fun(req.params.id).then((x) => {
-        var result = docdbUtils.createVM({},x);
-        res.json(result);  }); 
-    }
-);
+            var result = docdbUtils.createVM({},x);
+            res.json(result);  
+        });
+        */
+         
+     });
+
 
 //router.get('/api/zip/:id', zipList.renderPossibleLocations.bind(zipList));
 router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
