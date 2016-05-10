@@ -35,4 +35,4 @@ var renderParamRequest = R.curry((fun, req, res) => {
 
 //router.get('/api/zip/:id', renderParamRequest(forcastCalc));
  renderParamRequest(forcastCalc, {params: {id: '22207'}}, fakeRes);
- 
+  //docdbUtils.getLatLongByZip('22207');

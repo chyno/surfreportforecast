@@ -49,6 +49,8 @@ var renderParamRequest = R.curry((fun, req, res) => {
         fun(req.params.id).then((x) => {
             var result = docdbUtils.createVM({},x);
             res.json(result);  
+        }, (err) => {
+            res.status(500).send('Error' + err);
         });
         
          
@@ -56,7 +58,7 @@ var renderParamRequest = R.curry((fun, req, res) => {
 
 
 //router.get('/api/zip/:id', zipList.renderPossibleLocations.bind(zipList));
-router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
+//router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
 
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
 //router.get('/api/stateZips/:id', renderParamRequest(docdbUtils.getStateLocations));
