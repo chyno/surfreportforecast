@@ -1,13 +1,15 @@
 var R = require('ramda');
+var moment = require('moment');
 //var M = require('ramda-fantasy').Maybe;
 
 var docdbUtils = require('./lib/docdbUtils');
 
 var fakeRes = {
-    json(result)
+    json(vm)
     {
-        console.log('rendering http result... ');
-        console.log(result.toString());
+       // var result = vm.forecast;
+        //console.log(vm.forecast[0]);//result.daily.data[0].toString());
+        console.log(vm.forecast[0]);
     }
 }
 
@@ -15,15 +17,11 @@ var fakeRes = {
 var forcastCalc = R.composeP(docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
 var renderParamRequest = R.curry((fun, req, res) => {
         
-   
-       if(!req.params.id)
+   if(!req.params.id)
         { throw ("no parameter");}
         
-        console.log(fun.toString());
-       // res.json({foo : 'bar'});
-        
-        fun(req.params.id).then((x) => {
-            console.log('x is: ' +x);
+         fun(req.params.id).then((x) => {
+             
             var result = docdbUtils.createVM({},x);
             res.json(result);  
         });
@@ -32,7 +30,11 @@ var renderParamRequest = R.curry((fun, req, res) => {
      });
 
  
+ 
+//var formatdate = cmoment("MMM Do YY");
+
+//var a = cmoment('1462852800');
 
 //router.get('/api/zip/:id', renderParamRequest(forcastCalc));
- renderParamRequest(forcastCalc, {params: {id: '22207'}}, fakeRes);
+renderParamRequest(forcastCalc, {params: {id: '22207'}}, fakeRes);
   //docdbUtils.getLatLongByZip('22207');
