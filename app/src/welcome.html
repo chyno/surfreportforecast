@@ -35,17 +35,19 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                     <th>Date</th>
                     <th>Wind Speed</th>
                     <th>Wind Bearing</th>
                     <th>Max Temperature</th>
                     <th>Min Temperature</th>
-                    <th>Date</th>
+                 
 
                 </tr>
             </thead>
             <tbody>
                 <template repeat.for="forecast of forecasts">
                     <tr class="${forecast.windSpeed > 15 ? 'success' : ''}">
+                          <td>${forecast.time}</td>
                         <td>
                             ${forecast.windSpeed}
                         </td>
@@ -58,7 +60,7 @@
                         <td>
                             ${forecast.temperatureMin}
                         </td>
-                        <td>${forecast.time}</td>
+                      
                     </tr>
 
                 </template>
