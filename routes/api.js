@@ -20,37 +20,38 @@ router.get('/', function (req, res) {
     res.redirect('app/');
 });
 
+var createVMPromise = R.pipe(docdbUtils.createVM, (val) => Promise.resolve(val));
+var forcastCalc = R.composeP(createVMPromise,docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
+//var forcastCalc = R.composeP(docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
 
-var forcastCalc = R.composeP(docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
+var getStateZips =  (state) => Promise.resolve(
+    [
+        {zip: '11111111', 
+        city: 'Honolulu' },
+        {zip: '22222222', 
+        city: 'Paeia' },
+        {zip: '555555', 
+        city: 'SPreksville' }
+    ]);
+
+
 var renderParamRequest = R.curry((fun, req, res) => {
-        
-   
-       if(!req.params.id)
+
+  if(!req.params.id)
         { throw ("no parameter");}
         
-        
-       // res.json({foo : 'bar'});
-        
         fun(req.params.id).then((x) => {
-            var result = docdbUtils.createVM({},x);
-            res.json(result);  
+             res.json(x);  
         }, (err) => {
             res.status(500).send('Error' + err);
         });
-        
-         
-     });
+});
 
 
-//router.get('/api/zip/:id', zipList.renderPossibleLocations.bind(zipList));
-//router.get('/api/stateZips/:id', zipList.renderPossibleLocations.bind(zipList));
+
+router.get('/api/stateZips/:id', renderParamRequest(getStateZips));
 
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
-//router.get('/api/stateZips/:id', renderParamRequest(docdbUtils.getStateLocations));
 
-//Current User Items getUserLocations
-////router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
-//router.post('/api/userLocation', userLocation.addUserLocation.bind(userLocation));
-//router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
 
 module.exports = router;

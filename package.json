@@ -7,14 +7,13 @@
     "env": "env",
     "predebug": "cd app && node_modules\\.bin\\gulp  build",
     "prestartxx": "restart --watch routes\\api.js --exec node app.js",
-    "start": "node app.js",
+    "start": "nodemon app.js",
+    "debug": "node test.js",
     "start:dev": "node app.js 4000",
     "lint": "node node_modules\\jshint\\bin\\jshint .",
-    "pretest": "npm run lint",
-    "test": "node --harmony node_modules\\mocha\\bin\\mocha  ./test/*  --compilers js:mocha-traceur --watch ",
     "testw": "npm run test --  -R min -w",
-    "watch:lint": "watch 'npm run lint'",
-    "debug": ".\\node_modules\\.bin\\nodemon app.js --watch .\\app\\src\\**\\*"
+    "watch:lint": "watch 'npm run lint'"
+   
   },
   "author": "John Chynoweth",
   "license": "ISC",
