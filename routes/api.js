@@ -5,7 +5,7 @@ var router = express.Router();
 var http = require('requestify');
 var docdbUtils = require('../lib/docdbUtils');
 var R = require('ramda');
-
+var userSettings = require('../lib/userSettings');
 
 
 var erroLog = function(err)
@@ -47,10 +47,16 @@ var renderParamRequest = R.curry((fun, req, res) => {
         });
 });
 
+var renderRequest = R.curry((fun, req, res) => {
+  fun().then((x) => {
+             res.json(x);  
+        }, (err) => {
+            res.status(500).send('Error' + err);
+        });
+});
 
-
+router.get('/api/states', renderRequest(userSettings.getStates));
 router.get('/api/stateZips/:id', renderParamRequest(getStateZips));
-
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
 
 
