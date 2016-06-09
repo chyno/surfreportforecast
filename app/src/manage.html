@@ -18,26 +18,39 @@
                     <td>${location.state}</td>
                     <td>${location.zip}</td>
                     <td>
-                        <button click.delegate="removeLocation(1)">Remove</button>
+                        <button click.delegate="removeLocation(this)">Remove</button>
                     </td>
                 </tr>
             </thead>
         </table>
 
-        <form class="form-inline">
+
+   <form class="form-inline" >
             <div class="form-group">
-                <label class="sr-only" for="exampleInputAmount">Available Locations</label>
+                <label class="sr-only" for="exampleInputAmount">States</label>
                 <div class="input-group">
-                    <div class="input-group-addon">Locations</div>
-                    <select class="form-control" id="slcLocations">
-                        <option repeat.for="location of locations" value.bind="location">${location.city}</option>
+                    <div class="input-group-addon">States</div>
+                    <select class="form-control" id="slcStates" value.bind="selectectedState">
+                        <option repeat.for="state of states" value.bind="state">${state}</option>
                     </select>
 
                 </div>
-                <button click.delegate="addLocation()" class="btn btn-primary">Add</button>
+                <button click.delegate="selectState()" class="btn btn-primary">Select</button>
             </div>
 
-        </form>
+<label class="sr-only" for="slcLocations">Available Locations</label>
+<select value.bind="selectectedLocaltion" class="form-control" id="slcLocations">
+  <optgroup repeat.for="location of availableLocations" label.bind="location.city" >
+            <option repeat.for="place of location.locations" value.bind="place">
+                 ${place.zip}
+            </option>
+        </optgroup>
+        </select>
+</div>
+<button click.delegate="addLocation()" class="btn btn-primary">Add</button>
+    </form>
 
-    </div>
+
+
+       
 </template>

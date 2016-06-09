@@ -21,12 +21,8 @@ router.get('/', function (req, res) {
 });
 
 var createVMPromise = R.pipe(docdbUtils.createVM, (val) => Promise.resolve(val));
-var forcastCalc = R.composeP(createVMPromise,docdbUtils.showForcastByLongLat,R.head, docdbUtils.getLatLongByZip);
-var groupStateZip = R.composeP(userSettings.byZip,docdbUtils.getStateLocations);
-//var forcastCalc = R.composeP(docdbUtils.showForcastByLongLat, docdbUtils.getLatLongByZip);
-
- 
-
+var forcastCalc = R.composeP(createVMPromise,docdbUtils.showForcastByLongLat,R.head,  docdbUtils.getLatLongByZip);
+var groupStateZip = R.composeP(userSettings.makecityArray, userSettings.groupByZip,docdbUtils.getStateLocations);
 
 var renderParamRequest = R.curry((fun, req, res) => {
 

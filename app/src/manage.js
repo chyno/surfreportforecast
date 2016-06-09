@@ -11,49 +11,73 @@ router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(user
 export class Manage {
 
     constructor(httpClient) {
+        this.httpClient = httpClient;
         this.userName = 'Chyno';
         this.locations  = [];
-        this.selectectedLocaltion;
+        this.selectectedLocation = null;
+        this.selectectedState = null;
         this.availableLocations = [];
+        this.states = [];
     }
 
     activate() {
-        this    .getAvailableLocations();   
+        return this.getStates()
     }
     
-    getAvailableLocations() {
-        this.locations = [
-           {
-               id: 1,
-            city: "Arlington",
-            state: "VA", 
-            zip: "22207"},
-            
-            {
-                id:2,
-             city: "Wilmington",
-            state: "DE", 
-            zip: "19806"}  
-         ];
+    getStates() {
+        return this.httpClient.fetch("/api/states")
+            .catch((r) => {
+                alert(r);
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    return {};
+                }
+            }
+            )
+            .then(states => {
+                this.states =  Object.keys(states);
+                this.selectectedState = null;
+
+            });
     }
+
+ 
+
+    selectState() {
+          var self = this;
+         return this.httpClient.fetch("/api/stateZips/" + this.selectectedState)
+            .catch((r) => {
+                alert(r);
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    return {};
+                }
+            }
+            )
+            .then(locations => {
+                self.availableLocations = locations;
+
+            });
+        }
     
     addLocation()
     {
-        ///api/userLocation
-        /*
-        this.http.fetch('users', {
-            method: 'post',
-            body: json(user)
-        }); */
-        this.locations.push({city: "Honolulu",
-            state: "HI", 
-            zip: "999803"});
+      // console.log  ('selectectedLocaltion array = ' +this.selectectedLocaltion[0]);
+        this.locations.push(this.selectectedLocation);
 
     }
     
-     removeLocation(id)
+     removeLocation(item)
      {
-         alert(id);
+          this.locations.pop(item);
          //this.locations = this.locations.filter(loc => loc.id != id);
      }
 
