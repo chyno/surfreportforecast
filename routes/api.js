@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
 });
 
 var createVMPromise = R.pipe(docdbUtils.createVM, (val) => Promise.resolve(val));
-var forcastCalc = R.composeP(createVMPromise,docdbUtils.showForcastByLongLat,R.head,  docdbUtils.getLatLongByZip);
+var forcastCalc = R.composeP(createVMPromise, docdbUtils.showForcastByLongLat, R.head,  docdbUtils.getLatLongByZip);
 var groupStateZip = R.composeP(userSettings.makecityArray, userSettings.groupByZip,docdbUtils.getStateLocations);
 
 var renderParamRequest = R.curry((fun, req, res) => {
@@ -48,5 +48,8 @@ router.get('/api/states', renderRequest(userSettings.getStates));
 router.get('/api/stateZips/:id', renderParamRequest(groupStateZip));
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
 
+router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
+router.post('/api/userLocation', userLocation.addUserLocation.bind(userLocation));
+router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
 
 module.exports = router;

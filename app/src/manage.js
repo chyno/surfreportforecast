@@ -44,9 +44,7 @@ export class Manage {
 
             });
     }
-
- 
-
+    
     selectState() {
           var self = this;
          return this.httpClient.fetch("/api/stateZips/" + this.selectectedState)
@@ -64,21 +62,19 @@ export class Manage {
             )
             .then(locations => {
                 self.availableLocations = locations;
-
             });
-        }
+    }
     
     addLocation()
     {
-      // console.log  ('selectectedLocaltion array = ' +this.selectectedLocaltion[0]);
         this.locations.push(this.selectectedLocation);
-
-    }
+        this.selectectedLocation = null;
+        
+     }
     
      removeLocation(item)
      {
           this.locations.pop(item);
-         //this.locations = this.locations.filter(loc => loc.id != id);
      }
 
 }
