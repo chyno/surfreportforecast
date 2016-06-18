@@ -6,7 +6,7 @@ var http = require('requestify');
 var docdbUtils = require('../lib/docdbUtils');
 var R = require('ramda');
 var userSettings = require('../lib/userSettings');
-
+var userLocations = require('../lib/userLocations');
 
 var erroLog = function(err)
 {
@@ -48,8 +48,8 @@ router.get('/api/states', renderRequest(userSettings.getStates));
 router.get('/api/stateZips/:id', renderParamRequest(groupStateZip));
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
 
-router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
-router.post('/api/userLocation', userLocation.addUserLocation.bind(userLocation));
-router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
+router.get('/api/userLocation/:id', userLocations.getUserLocations.bind(userLocation));
+router.post('/api/userLocation', userLocations.addUserLocation.bind(userLocation));
+router.delete('/api/userLocation/:id', userLocations.deleteUserLocation.bind(userLocation));
 
 module.exports = router;
