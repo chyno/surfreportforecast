@@ -2,7 +2,7 @@
 
 var express = require('express');
 var router = express.Router();
-var http = require('requestify');
+//var http = require('requestify');
 var docdbUtils = require('../lib/docdbUtils');
 var R = require('ramda');
 var userSettings = require('../lib/userSettings');
@@ -44,12 +44,21 @@ var renderRequest = R.curry((fun, req, res) => {
         });
 });
 
+var handlePost = R.curry((fun, req, res) => {
+    var body = req.body;
+  fun(body).then((x) => {
+             res.json(x);  
+        }, (err) => {
+            res.status(500).send('Error' + err);
+        });
+});
+
 router.get('/api/states', renderRequest(userSettings.getStates));
 router.get('/api/stateZips/:id', renderParamRequest(groupStateZip));
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
 
-router.get('/api/userLocation/:id', userLocations.getUserLocations.bind(userLocations));
-router.post('/api/userLocation', userLocations.addUserLocation.bind(userLocations));
+router.get('/api/userLocation/:id', renderParamRequest(userLocations.getUserLocations));
+router.post('/api/userLocation', handlePost(userLocations.addUserLocation));
 router.delete('/api/userLocation/:id', userLocations.deleteUserLocation.bind(userLocations));
 
 module.exports = router;
