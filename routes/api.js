@@ -53,12 +53,14 @@ var handlePost = R.curry((fun, req, res) => {
         });
 });
 
+ 
+
 router.get('/api/states', renderRequest(userSettings.getStates));
 router.get('/api/stateZips/:id', renderParamRequest(groupStateZip));
 router.get('/api/zip/:id', renderParamRequest(forcastCalc));
 
 router.get('/api/userLocation/:id', renderParamRequest(userLocations.getUserLocations));
 router.post('/api/userLocation', handlePost(userLocations.addUserLocation));
-router.delete('/api/userLocation/:id', userLocations.deleteUserLocation.bind(userLocations));
+router.delete('/api/userLocation/:id', renderParamRequest(userLocations.deleteUserLocation));
 
 module.exports = router;
