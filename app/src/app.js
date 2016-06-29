@@ -6,7 +6,6 @@ export class App {
       { route: ['manage'], name: 'manage',  moduleId: 'manage', nav: true, title: 'Manage Locations' }
       
     ]);
-
     this.router = router;
   }
 }

@@ -15,12 +15,12 @@
 
                             </th>
                         </tr>
-                        <tr repeat.for="location of locations">
+                        <tr repeat.for="location of locations" value.bind="selectecUserLocation">
                             <td>${location.city}</td>
                             <td>${location.state}</td>
                             <td>${location.zip}</td>
                             <td>
-                                <button click.delegate="removeLocation(this)">Remove</button>
+                                <button click.delegate="removeLocation(location)">Remove</button>
                             </td>
                         </tr>
                     </thead>

@@ -1,5 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient} from "aurelia-fetch-client";
+ 
 
 /*
 router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
@@ -12,6 +13,11 @@ export class Manage {
 
     constructor(httpClient) {
         this.httpClient = httpClient;
+         this.headers = new Headers();
+
+           this.headers.append("content-type", "application/json; charset=utf-8");
+
+       
         this.userName = 'Chyno';
         this.locations  = [];
         this.selectectedLocation = null;
@@ -21,7 +27,9 @@ export class Manage {
     }
 
     activate() {
-        return this.getStates()
+        return this.getStates().then(() => {
+            return  this.getLocations();
+        });
     }
     
     getStates() {
@@ -67,15 +75,79 @@ export class Manage {
     
     addLocation()
     {
-        this.locations.push(this.selectectedLocation);
-        this.selectectedLocation = null;
-        
-     }
+        var data = {
+             method: 'POST',
+             headers: this.headers
+         };
     
-     removeLocation(item)
-     {
-          this.locations.pop(item);
+       this.selectectedLocation.userName = this.userName;
+        data.body = JSON.stringify(this.selectectedLocation);
+
+        return this.httpClient.fetch("/api/userLocation",  data)
+            .catch((r) => {
+                alert(r);
+            })
+             .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    return {};
+                }
+            }
+            )
+            .then(sellocattion => {
+                this.selectectedLocation.id = sellocattion.id;
+                this.locations.push(this.selectectedLocation);
+                //this.selectectedLocation = null;
+            });
      }
 
+      getLocations() {
+        
+        return this.httpClient.fetch("/api/userLocation/" + this.userName)
+            .catch((r) => {
+                alert(r);
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                else {
+                    return {};
+                }
+            }
+            )
+            .then(locations => {
+               this.locations = locations;
+
+            });
+        }
+    
+     removeLocation(event)
+     {
+        // alert(event);
+         console.log(event);
+
+         var data = {
+             method: 'DELETE',
+             headers: this.headers
+         };
+
+         return this.httpClient.fetch("/api/userLocation/" + event.id, data)
+            .catch((r) => {
+                alert(r);
+            })
+            .then(response => {
+                if (response.ok) {
+                    this.locations.pop(event);
+                }
+                else {
+                     alert('error');
+                }
+            }
+            );   
+                  
+     }
 }
 

@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
-
+var api = require('./routes/api');
 var app = express();
 
 var allowCrossDomain = function(req, res, next) {
@@ -17,32 +17,30 @@ var allowCrossDomain = function(req, res, next) {
 // view engine setup
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
-//app.set('views', path.join(__dirname, 'views'));
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
+app.set('port', process.env.PORT || 9001);
 
-var api = require('./routes/api');
+
 app.use('/', api);
 
 var debug = require('debug')('aurelia-node');
 
-app.set('port', process.env.PORT || 9000);
-
 
 var server = app.listen(app.get('port'), function(err) {
-    
+    /*
     if (err)
     {
         console.log('Error: ' + err );
     }
-  debug('Express server listening on port ' + server.address().port);
- console.log('Express server listening on port: ' + server.address().port);
- 
+  
+    debug('Express server listening on port ' + server.address().port);
+    console.log('Express server listening on port: ' + server.address().port);
+ */
+
 });
 
 
