@@ -10,7 +10,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon">Available</div>
                             <select class="form-control" id="slcStates" value.bind="selectedLocation">
-                                <option repeat.for="location of locations" value.bind="location">${location.state} - ${location.zip}</option>
+                                <option repeat.for="location of locations" model.bind="location" >${location.state} - ${location.zip}</option>
                         </select> </div>
                          <button click.delegate="click.trigger=renderForcast()" class="btn btn-primary">Select</button>
                     </div> 
