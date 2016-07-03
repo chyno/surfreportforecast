@@ -1,53 +1,55 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient} from "aurelia-fetch-client";
+import {Service} from "./service";
 
-@inject(HttpClient)
+@inject(HttpClient, Service)
 export class Welcome {
 
-    constructor(httpClient) {
+    constructor(httpClient, service) {
         this.httpClient = httpClient;
-        this.zip = "22207";
         this.heading = 'Current Forecast';
         this.currently;
         this.forecasts;
-        this.city;
-        this.state;
+        this.service = service;
+        this.locations  = [];
+        this.selectedLocation = null;
     }
 
     activate() {
-        return this.reenderReults();
+        
+        this.service.getCurrentLocations().then(lcs =>
+        {
+           this.locations = lcs;
+           if (this.locations)
+           {
+               this.selectedLocation =  this.locations[0];
+               return this.renderForcast();
+           }
+        }
+        );
     }
 
-    showReadings() {
-        this.reenderReults();
-    }
-
-    reenderReults(httpClient) {
+   renderForcast() {
      
-     if (!this.zip)
+     if (!this.selectedLocation)
         {return;}
          
-        return this.httpClient.fetch("api/zip/" + this.zip)
+        return this.httpClient.fetch("api/zip/" + this.selectedLocation.zip)
             .catch((r) => {
               alert(r);
-        }  )
-            .then(response => 
-            {
-                if(response.ok)
-                {
-                 return  response.json()
-                }
-                else{
-                    return {};
-                }
+        } )
+        .then(response => 
+         {
+            if (response.ok) {
+                return response.json()
             }
-            )
-            .then(data => {
-                this.city = data.city;
-                this.state = data.state;
-                this.currently = data.currently;
-                this.forecasts = data.forecast;
-            });
-            
+            else {
+                return {};
+            }
+         })
+        .then(data => {
+           this.currently = data.currently;
+            this.forecasts = data.forecast;
+        });
     }
 }
