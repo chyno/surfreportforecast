@@ -5,8 +5,8 @@
   "main": "app",
   "scripts": {
     "env": "env",
-    "predebug": "cd app && node_modules\\.bin\\gulp  build",
-    "prestartxx": "restart --watch routes\\api.js --exec node app.js",
+    "foo": "cd app && node_modules\\.bin\\gulp  build",
+    "prestart": ".\\app\\node_modules\\.bin\\gulp  build",
     "start": "nodemon app.js",
     "tester": "node test.js",
     "start:dev": "node app.js 4000",

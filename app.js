@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
-app.set('port', process.env.PORT || 9001);
+app.set('port', process.env.PORT || 9000);
 
 
 app.use('/', api);
@@ -31,17 +31,15 @@ var debug = require('debug')('aurelia-node');
 
 
 var server = app.listen(app.get('port'), function(err) {
-    /*
-    if (err)
+    
+  if (err)
     {
         console.log('Error: ' + err );
     }
   
     debug('Express server listening on port ' + server.address().port);
     console.log('Express server listening on port: ' + server.address().port);
- */
-
-});
+ });
 
 
 module.exports = app;

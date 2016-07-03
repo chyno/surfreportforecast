@@ -10,6 +10,6 @@ var docdbUtils = require('./lib/docdbUtils');
 docdbUtils.getLatLongByZip('22207').then (res => {
     var res2 = R.head(res);
     console.log(res2);
-})
+});
 
  

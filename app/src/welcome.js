@@ -6,18 +6,17 @@ import {Service} from "./service";
 export class Welcome {
 
     constructor(httpClient, service) {
+        this.service = service;
         this.httpClient = httpClient;
         this.heading = 'Current Forecast';
         this.currently;
         this.forecasts;
-        this.service = service;
         this.locations  = [];
         this.selectedLocation = null;
     }
 
     activate() {
-        
-        this.service.getCurrentLocations().then(lcs =>
+        return this.service.getCurrentLocations().then(lcs =>
         {
            this.locations = lcs;
            if (this.locations)
@@ -25,8 +24,7 @@ export class Welcome {
                this.selectedLocation =  this.locations[0];
                return this.renderForcast();
            }
-        }
-        );
+        });
     }
 
    renderForcast() {
@@ -37,7 +35,7 @@ export class Welcome {
         return this.httpClient.fetch("api/zip/" + this.selectedLocation.zip)
             .catch((r) => {
               alert(r);
-        } )
+        })
         .then(response => 
          {
             if (response.ok) {
@@ -49,7 +47,7 @@ export class Welcome {
          })
         .then(data => {
            this.currently = data.currently;
-            this.forecasts = data.forecast;
+           this.forecasts = data.forecast;
         });
     }
 }

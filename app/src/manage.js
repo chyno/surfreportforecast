@@ -2,21 +2,15 @@ import {inject} from 'aurelia-framework';
 import {HttpClient} from "aurelia-fetch-client";
 import {Service} from "./service";
 
-/*
-router.get('/api/userLocation/:id', userLocation.getUserLocations.bind(userLocation));
-router.post('/api/userLocation', userLocation.addUserLocation.bind(userLocation));
-router.delete('/api/userLocation/:id', userLocation.deleteUserLocation.bind(userLocation));
+  var headers = new Headers();
+  headers.append("content-type", "application/json; charset=utf-8");
 
-*/
 @inject(HttpClient, Service)
 export class Manage {
-
-    constructor(httpClient, service) {
+  constructor(httpClient, service) {
         this.httpClient = httpClient;
-         this.headers = new Headers();
-          this.headers.append("content-type", "application/json; charset=utf-8");
-          this.service = service;
-        this.userName = 'Chyno';
+     this.service = service;
+      
         this.locations  = [];
         this.selectectedLocation = null;
         this.selectectedState = null;
@@ -80,7 +74,7 @@ export class Manage {
              headers: this.headers
          };
     
-       this.selectectedLocation.userName = this.userName;
+       this.selectectedLocation.userName = this.service.getUserName();
         data.body = JSON.stringify(this.selectectedLocation);
 
         return this.httpClient.fetch("/api/userLocation",  data)
@@ -104,8 +98,7 @@ export class Manage {
      }
 
       getLocations() {
-        
-        return  this.service.getCurrentLocations();
+         return  this.service.getCurrentLocations();
     }
     
      removeLocation(event)
@@ -131,7 +124,6 @@ export class Manage {
                 }
             }
             );   
-                  
-     }
+          }
 }
 
