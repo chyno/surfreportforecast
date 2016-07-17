@@ -6,7 +6,7 @@
   "scripts": {
     "env": "env",
     "foo": "cd app && node_modules\\.bin\\gulp  build",
-    "prestart": ".\\app\\node_modules\\.bin\\gulp  build",
+    "xprestart": ".\\app\\node_modules\\.bin\\gulp  build",
     "start": "nodemon app.js",
     "tester": "node test.js",
     "start:dev": "node app.js 4000",
