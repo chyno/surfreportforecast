@@ -7,6 +7,9 @@
     
      <div class="row" style="margin-top:1.5em">
                 <div class="col-md-4">
+                     <p class="text-primary">${selectedLocation.city}, ${selectedLocation.state} </p>
+                </div>
+                <div class="col-md-8">
                     <form class="form-inline">
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputAmount">Available</label>
@@ -15,17 +18,14 @@
                                 <select class="form-control" id="slcStates" value.bind="selectedLocation">
                                         <option repeat.for="location of locations" model.bind="location" >${location.state} - ${location.zip}</option>
                                 </select> </div>
-                            <button click.delegate="click.trigger=renderForcast()" class="btn btn-primary">Select</button>
+                            <button click.delegate="click.trigger=renderForcast()" class="btn btn-primary">Update</button>
                         </div>
                  </form>
                 </div>
-                <div class="col-md-8">
-                    <label class="control-label" class="sr-only" for="city">City</label> <span id="city" class="label label-default">${selectedLocation.city}</span>
-                    <label class="control-label" class="sr-only" for="state">State</label><span id="state" class="label label-default">${selectedLocation.state} </span>
-                </div>
+               
             </div>
               <hr style="margin: 0 !imprortant">
-               <h1 id="forcast">Forcast</h1>
+               <h2 id="forcast">Forcast</h2>
             <div class="row">
                 <div class="col-md-2">
                     <label for="sp" class="control-label">Wind Speed: </label><span class="label label-default">${currently.windSpeed}</span></div>
