@@ -14,6 +14,13 @@ var allowCrossDomain = function(req, res, next) {
     next();
 };
 
+
+if (app.get('env') == 'development') {
+  var browserSync = require('browser-sync');
+  var bs = browserSync({ logSnippet: false });
+  app.use(require('connect-browser-sync')(bs));
+}
+
 // view engine setup
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
@@ -26,6 +33,9 @@ app.set('port', process.env.PORT || 9000);
 
 
 app.use('/', api);
+
+
+
 
 var debug = require('debug')('aurelia-node');
 

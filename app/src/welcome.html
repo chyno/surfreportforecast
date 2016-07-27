@@ -3,33 +3,35 @@
 <div class="bs-component">
     
      <div class="row" style="margin-top:1.5em">
-                <div class="col-md-4">
-                     <p class="text-primary">${selectedLocation.city}, ${selectedLocation.state} </p>
+                <div class="col-md-3">
+                   <span id="selectedLocation" >${selectedLocation.city}, ${selectedLocation.state} </span>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <form class="form-inline">
                         <div class="form-group">
                             <label class="sr-only" for="exampleInputAmount">Available</label>
                             <div class="input-group">
                                 <div class="input-group-addon">Available</div>
-                                <select class="form-control" id="slcStates" value.bind="selectedLocation">
+                                <select class="form-control" id="slcStates" value.bind="selectedLocationFromDD">
                                         <option repeat.for="location of locations" model.bind="location" >${location.state} - ${location.zip}</option>
                                 </select> </div>
-                            <button click.delegate="click.trigger=renderForcast()" class="btn btn-primary">Update</button>
+                            <button click.delegate="click.trigger=renderForcast()" class="btn btn-primary">Select</button>
                         </div>
                  </form>
                 </div>
                
             </div>
               <hr style="margin: 0 !imprortant">
-               <h2 id="forcast">Forcast</h2>
+               
             <div class="row">
+                <label class="col-md-2" class="control-label" style="display:inline-block">Current Forecast</label>
                 <div class="col-md-2">
-                    <label for="sp" class="control-label">Wind Speed: </label><span class="label label-default">${currently.windSpeed}</span></div>
+                    <label for="sp" class="control-label">Wind Speed:&nbsp; </label><span  class="label label-default"> ${currently.windSpeed}</span>
+                </div>
                 <div class="col-md-2">
-                    <label for="dr" class="control-label">Wind Bearing: </label> <span class="label label-default">${currently.windBearing}</span></div>
-                <div>
-                    <label for="city" class="control-label">Temperature: </label><span class="label label-default">${currently.temperature}</span></div>
+                    <label for="dr" class="control-label">Wind Bearing:&nbsp; </label> <span class="label label-default"> ${currently.windBearing}</span></div>
+                <div class="col-md-7">
+                    <label for="city" class="control-label">Temperature:&nbsp; </label><span class="label label-default"> ${currently.temperature}</span></div>
 
             </div>
 

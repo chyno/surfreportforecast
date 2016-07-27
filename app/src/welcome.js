@@ -13,6 +13,7 @@ export class Welcome {
         this.forecasts;
         this.locations  = [];
         this.selectedLocation = null;
+        this.selectedLocationFromDD = null
     }
 
     activate() {
@@ -22,6 +23,7 @@ export class Welcome {
            if (this.locations)
            {
                this.selectedLocation =  this.locations[0];
+               this.selectedLocationFromDD = this.selectedLocation;
                return this.renderForcast();
            }
         });
@@ -29,13 +31,12 @@ export class Welcome {
 
    renderForcast() {
      
-     if (!this.selectedLocation)
+     if (!this.selectedLocationFromDD)
         {return;}
          
+    this.selectedLocation = this.selectedLocationFromDD;
+
         return this.httpClient.fetch("api/zip/" + this.selectedLocation.zip)
-            .catch((r) => {
-              alert(r);
-        })
         .then(response => 
          {
             if (response.ok) {
@@ -48,6 +49,9 @@ export class Welcome {
         .then(data => {
            this.currently = data.currently;
            this.forecasts = data.forecast;
+           return "sucess";
+        }).catch((r) => {
+              alert(r);
         });
     }
 }

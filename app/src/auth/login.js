@@ -1,18 +1,17 @@
-//import {AuthService} from 'aurelia-auth';
+import {AuthService} from 'aurelia-auth';
 import {inject} from 'aurelia-framework';
+@inject(AuthService)
 
-//@inject(AuthService)
 export class Login{
-    constructor(){
-       // this.auth = auth;
+    constructor(auth){
+        this.auth = auth;
     };
 
-   
+    heading = 'Login';
 
     email='';
     password='';
     login(){
-        /*
         return this.auth.login(this.email, this.password)
         .then(response=>{
             console.log("success logged " + response);
@@ -20,15 +19,12 @@ export class Login{
         .catch(err=>{
             console.log("login failure");
         });
-        */
     };
 
     authenticate(name){
-        /*
         return this.auth.authenticate(name, false, null)
         .then((response)=>{
             console.log("auth response " + response);
         });
-        */
     }
 }

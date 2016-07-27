@@ -53,11 +53,11 @@ let run;
 
 if (CLIOptions.hasFlag('watch')) {
   run = gulp.series(
-    serve,
+    build,
     watch
   );
 } else {
-  run = serve;
+  run = build;
 }
 
 export default run;
