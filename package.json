@@ -6,14 +6,13 @@
   "scripts": {
     "env": "env",
     "foo": "cd app && node_modules\\.bin\\gulp  build",
-    "xprestart": ".\\app\\node_modules\\.bin\\gulp  build",
+    "prestart": "cd app && au   build",
     "start": "nodemon app.js",
     "tester": "node test.js",
     "start:dev": "node app.js 4000",
     "lint": "node node_modules\\jshint\\bin\\jshint .",
     "testw": "npm run test --  -R min -w",
     "watch:lint": "watch 'npm run lint'"
-   
   },
   "author": "John Chynoweth",
   "license": "ISC",
@@ -27,6 +26,7 @@
     "github": "^0.2.4",
     "github-download": "*",
     "mocha": "^2.3.3",
+    "moment": "^2.14.1",
     "ramda": "^0.21.0",
     "ramda-fantasy": "^0.4.1",
     "ramda-maybe": "^0.18.0",
@@ -36,7 +36,6 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
-    "aurelia-tools": "git://github.com/aurelia/tools.git",
     "browser-sync": "^1.8.1",
     "conventional-changelog": "0.0.11",
     "del": "^1.1.0",
@@ -62,8 +61,6 @@
   },
   "jspm": {
     "dependencies": {
-      "aurelia-bootstrapper": "^0.9.1",
-      "aurelia-http-client": "^0.4.3",
       "bootstrap": "^3.3.1",
       "font-awesome": "^4.2.0"
     },

@@ -10,7 +10,7 @@ var userLocations = require('../lib/userLocations');
 
  
 router.get('/', function (req, res) {
-    res.redirect('app/');
+    res.redirect('app/surfreport');
 });
 
 //Inpure Code
