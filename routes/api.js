@@ -10,7 +10,7 @@ var userLocations = require('../lib/userLocations');
 
  
 router.get('/', function (req, res) {
-    res.redirect('app/surfreport');
+    res.redirect('app/dist');
 });
 
 //Inpure Code
@@ -19,7 +19,11 @@ var forcastCalc = R.composeP(createVMPromise, docdbUtils.showForcastByLongLat, R
 var groupStateZip = R.composeP(userSettings.makecityArray, userSettings.groupByZip,docdbUtils.getStateLocations);
 //************************* 
 
- 
+ //For testing
+router.get('/api/helloWorld', function (req, res) 
+{ 
+    res.send('Hell World'); 
+});
 
 router.get('/api/states', response.renderRequest(userSettings.getStates));
 router.get('/api/stateZips/:id', response.renderParamRequest(groupStateZip));

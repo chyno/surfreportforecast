@@ -5,10 +5,9 @@
   "main": "app",
   "scripts": {
     "env": "env",
-    "prestart": "cd app && au   build",
-    "start": "nodemon app.js",
+    "xxstart": "cd app && au  build",
     "tester": "node test.js",
-    "start:dev": "node app.js 4000",
+    "start": "NODE_ENV=development nodemon app.js",
     "lint": "node node_modules\\jshint\\bin\\jshint .",
     "testw": "npm run test --  -R min -w",
     "watch:lint": "watch 'npm run lint'"
@@ -32,7 +31,9 @@
     "request-promise": "^1.0.2",
     "requestify": "^0.1.17",
     "require-dir": "^0.3.0",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "webpack": "^1.13.1",
+    "webpack-dev-middleware": "^1.6.1"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
